@@ -5,8 +5,8 @@ HEIGHT_BTN = 5
 WIDTH_BTN = 5
 
 def interactWithScreen(character):
-    if screen["text"][0]!="0" or "Err" is screen["text"]:
-        screen["text"] = screen["text"] + character
+    if str(screen["text"])[0]!="0":
+        screen["text"] = str(screen["text"]) + character
     else:
         screen["text"] = character
 
@@ -59,50 +59,12 @@ def numClearClick(event):
     screen["text"] = '0'
 
 def numEqualClick(event):
-    '''
-    Create a var with our data for comparison
-    '''
-    mathOperators = '+-'+chr(247)+'x'
-    temp = str(screen["text"])
+    temp = screen["text"]
 
-    result = 0
+    temp = temp.replace("x","*")
+    temp = temp.replace(chr(247),"/")
 
-    '''
-    Extracting the data from the screen
-    '''
-    numbers = re.split('\d+\.\d+|\d+',temp)
-    mathOperation = list(c for c in temp if c in mathOperators)
-
-    print(temp)
-    print(numbers)
-    print(mathOperation)
-
-    '''
-    Starting process the screen to do the calculations
-    '''
-
-    '''
-    while(mathOperation):
-        tempResult = 0
-        if("x" in mathOperation):
-            index = mathOperation.index("x")
-            tempResult = float(numbers[index]) * float(numbers[index+1])
-            numbers[index] = tempResult
-        if(chr(247) in mathOperation):
-            index = mathOperation.index(chr(247))
-            tempResult = float(numbers[index]) / float(numbers[index+1])
-            numbers[index] = tempResult
-        if("+" in mathOperation):
-            index = mathOperation.index("+")
-            tempResult = float(numbers[index]) + float(numbers[index+1])
-            numbers[index] = tempResult
-        if("-" in mathOperation):
-            index = mathOperation.index("-")
-            tempResult = float(numbers[index]) - float(numbers[index+1])
-            numbers[index] = tempResult
-
-        result += tempResult
-    '''
+    result = eval(str(temp))
     screen["text"] = result
 
 def generate_buttons(container1_buttons):
