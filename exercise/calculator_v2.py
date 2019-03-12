@@ -55,22 +55,61 @@ def numDivClick(event):
 def numCommaClick(event):
     interactWithScreen('.')
 
+def numClearClick(event):
+    screen["text"] = '0'
+
 def numEqualClick(event):
+    '''
+    Create a var with our data for comparison
+    '''
+    mathOperators = '+-'+chr(247)+'x'
     temp = str(screen["text"])
 
-    #try:
-    #numbers,remain = re.split('\D',temp)
-    #print(temp)
-    #mathOperation = re.split('+',temp)
-    #print(temp)
-    #print(numbers)
-    #print(mathOperation)
-    #screen["text"] = ' '
-    #except:
-    #    #print("Exception!")
-    #    screen["text"] = "Err"
+    result = 0
+
+    '''
+    Extracting the data from the screen
+    '''
+    numbers = re.split('\D',temp)
+    mathOperation = list(c for c in temp if c in mathOperators)
+
+    '''
+    Starting process the screen to do the calculations
+    '''
+
+    '''
+    while(mathOperation):
+        tempResult = 0
+        if("x" in mathOperation):
+            index = mathOperation.index("x")
+            tempResult = float(numbers[index]) * float(numbers[index+1])
+            numbers[index] = tempResult
+        if(chr(247) in mathOperation):
+            index = mathOperation.index(chr(247))
+            tempResult = float(numbers[index]) / float(numbers[index+1])
+            numbers[index] = tempResult
+        if("+" in mathOperation):
+            index = mathOperation.index("+")
+            tempResult = float(numbers[index]) + float(numbers[index+1])
+            numbers[index] = tempResult
+        if("-" in mathOperation):
+            index = mathOperation.index("-")
+            tempResult = float(numbers[index]) - float(numbers[index+1])
+            numbers[index] = tempResult
+
+        result += tempResult
+    '''
+    screen["text"] = result
 
 def generate_buttons(container1_buttons):
+    buttonClear = Button(container1_buttons)
+    # Setting the attributes
+    buttonClear["text"] = "C"
+    buttonClear["background"] = "gray"
+    buttonClear.grid(column=1)
+    buttonClear.config(height = HEIGHT_BTN, width = WIDTH_BTN)
+    buttonClear.bind("<Button-1>",numClearClick)
+
     button1 = Button(container1_buttons) # Creating the button for num1
     # Setting the attributes
     button1["text"] = "1"
