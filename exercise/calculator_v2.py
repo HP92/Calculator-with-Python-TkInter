@@ -70,8 +70,12 @@ def numEqualClick(event):
     '''
     Extracting the data from the screen
     '''
-    numbers = re.split('\D',temp)
+    numbers = re.split('\d+\.\d+|\d+',temp)
     mathOperation = list(c for c in temp if c in mathOperators)
+
+    print(temp)
+    print(numbers)
+    print(mathOperation)
 
     '''
     Starting process the screen to do the calculations
