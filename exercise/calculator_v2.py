@@ -76,6 +76,8 @@ def generate_buttons(container1_buttons):
     buttonClear.config(height = HEIGHT_BTN, width = WIDTH_BTN)
     buttonClear.bind("<Button-1>",numClearClick)
 
+    print(buttonClear)
+
     button1 = Button(container1_buttons) # Creating the button for num1
     # Setting the attributes
     button1["text"] = "1"
@@ -84,6 +86,8 @@ def generate_buttons(container1_buttons):
     button1.config(height = HEIGHT_BTN, width = WIDTH_BTN)
     button1.bind("<Button-1>",num1Click)
 
+    print(button1)
+
     button2 = Button(container1_buttons) # Creating the button for num1
     # Setting the attributes
     button2["text"] = "2"
@@ -91,6 +95,8 @@ def generate_buttons(container1_buttons):
     button2.grid(column=2,row=1)
     button2.config(height = HEIGHT_BTN, width = WIDTH_BTN)
     button2.bind("<Button-1>",num2Click)
+
+    print(button2)
 
     button3 = Button(container1_buttons) # Creating the button for num1
     # Setting the attributes
