@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import ttk
 from functools import partial
 
 # Our Constant variables
@@ -19,10 +20,12 @@ def interactWithScreen(character):
     # If statment to not allow to add two plus symbols or minus and etc.
     #elif str(screen["text"])[-1]==chr(247) or str(screen["text"])[-1]=='x' or str(screen["text"])[-1]=='+' or str(screen["text"])[-1]== '-':
     #    return
-    elif str(screen["text"])[0]!="0" or "Error" in str(screen["text"]):
+    elif str(screen["text"])[0]!="0":
         screen["text"] = str(screen["text"]) + str(character)
         return
     else:
+        if "Error" is str(screen["text"]):
+            screen["text"] = " "
         screen["text"] = character
         return
 
@@ -77,6 +80,8 @@ def generate_buttons(container1_buttons):
         numButton.config(height = HEIGHT_BTN, width = WIDTH_BTN,command= action_with_arg)
         numButton.grid(column=col_num,row=row_num)
         if(num==0):
+            numButton.grid(column=col_num,row=row_num,columnspan = 4 )
+            numButton.config(height = HEIGHT_BTN, width = WIDTH_BTN * 5)
             row_num += 1
             col_num = 0
             continue
