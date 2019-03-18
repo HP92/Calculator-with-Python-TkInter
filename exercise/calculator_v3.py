@@ -1,34 +1,46 @@
 from tkinter import *
 from functools import partial
 
+# Our Constant variables
 HEIGHT_BTN = 5
 WIDTH_BTN = 5
 COLOT_BTN = "gray"
 
-def interactWithScreen(character):
-    print("interactWithScreen = " + str(character))
-    if character == 'C':
-        screen["text"] = 0
+# Our methods/functions
 
-    if str(screen["text"])[0]!="0":
+# Method to store our values in the label
+def interactWithScreen(character):
+    if str(character) is 'C':
+        screen["text"] = 0
+        return
+    elif str(character) is '=':
+        screen["text"] = numEqualClick(screen["text"])
+        return
+    # If statment to not allow to add two plus symbols or minus and etc.
+    #elif str(screen["text"])[-1]==chr(247) or str(screen["text"])[-1]=='x' or str(screen["text"])[-1]=='+' or str(screen["text"])[-1]== '-':
+    #    return
+    elif str(screen["text"])[0]!="0" or "Error" in str(screen["text"]):
         screen["text"] = str(screen["text"]) + str(character)
+        return
     else:
         screen["text"] = character
+        return
 
+# generic function for each button to add their values
 def actionNumButton(symbol):
     interactWithScreen(symbol)
 
-# def numClearClick(event):
-#     screen["text"] = '0'
-#
-# def numEqualClick(event):
-#     temp = screen["text"]
-#
-#     temp = temp.replace("x","*")
-#     temp = temp.replace(chr(247),"/")
-#
-#     result = eval(str(temp))
-#     screen["text"] = result
+# Function to calculate the result
+def numEqualClick(screen):
+    result = 0
+    try:
+        screen = screen.replace("x","*")
+        screen = screen.replace(chr(247),"/")
+
+        result = eval(str(screen))
+    except ZeroDivisionError:
+        result = "Error: Cannot divide by zero"
+    return result
 
 def generate_buttons(container1_buttons):
     symbols_dict = {
@@ -59,6 +71,7 @@ def generate_buttons(container1_buttons):
             col_num = 0
             row_num += 1
 
+        # creating a partial function.
         action_with_arg = partial(actionNumButton, symbols_dict[num])
         numButton = Button(container1_buttons,text=symbols_dict[num],background=COLOT_BTN)
         numButton.config(height = HEIGHT_BTN, width = WIDTH_BTN,command= action_with_arg)
