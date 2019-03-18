@@ -12,6 +12,8 @@ TkInter is not the only GUI package for Python, but it is one of the widely used
 
 It comes pre-installed with your Python 3 distribution. You just need to import it.
 
+> NOTE: For macOS, there might be some incompatibilities with the features offered by Tkinter. This is caused by the OS design, and the fact that it doesn't allow users to change certain parameters.
+
 ## Tcl/Tk Background
 
 Tcl (Tool Command Language) is a very powerful but easy to learn dynamic, high-level, interpreted programming language, suitable for a very wide range of uses, including web and desktop applications, networking, administration, testing and many more. Open source and business-friendly, Tcl is a mature yet evolving language that is truly cross platform, easily deployed and highly extensible.
@@ -632,6 +634,27 @@ Create your own calculator.
 ![calculator](images/calculator.png)
 
 See our implementation [here](exercise/calculator_v1.py) and [here](exercise/calculator_v2.py).
+
+
+# GUI Designer
+
+## Pygubu 
+
+Pygubu is a RAD tool to enable quick & easy development of user interfaces for the python tkinter module.
+
+The user interfaces designed are saved as XML, and by using the pygubu builder these can be loaded by applications dynamically as needed. Pygubu is inspired by Glade.
+
+[pygubu](https://pypi.org/project/pygubu/)
+
+
+## PAGE
+
+PAGE is a drag-and-drop GUI generator for Python and Tkinter which generates Python modules which display a relatively simple GUI constructed from Tk and ttk widget sets using the Place Geometry Manager. PAGE is a cross platform tool runing on any OS which has Tcl/Tk installed. PAGE output requires only Python and Tkinter and runs on Linux, Unix, Windows, OS X, and even Rasperian.
+
+
+[page](https://sourceforge.net/projects/page/)
+
+
 ---
 
 # Addendum
