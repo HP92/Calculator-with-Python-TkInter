@@ -8,9 +8,8 @@ WIDTH_BTN = 5
 COLOT_BTN = "gray"
 
 # Our methods/functions
-
 # Method to store our values in the label
-def interactWithScreen(character):
+def interactWithScreen(character,screen):
     if str(character) is 'C':
         screen["text"] = 0
         return
@@ -29,10 +28,6 @@ def interactWithScreen(character):
         screen["text"] = character
         return
 
-# generic function for each button to add their values
-def actionNumButton(symbol):
-    interactWithScreen(symbol)
-
 # Function to calculate the result
 def numEqualClick(screen):
     result = 0
@@ -45,7 +40,7 @@ def numEqualClick(screen):
         result = "Error: Cannot divide by zero"
     return result
 
-def generate_buttons(container1_buttons):
+def generate_buttons(container1_buttons,screen):
     symbols_dict = {
         0:'C',
         1:9,
@@ -75,7 +70,7 @@ def generate_buttons(container1_buttons):
             row_num += 1
 
         # creating a partial function.
-        action_with_arg = partial(actionNumButton, symbols_dict[num])
+        action_with_arg = partial(interactWithScreen, symbols_dict[num],screen)
         numButton = Button(container1_buttons,text=symbols_dict[num],background=COLOT_BTN)
         numButton.config(height = HEIGHT_BTN, width = WIDTH_BTN,command= action_with_arg)
         numButton.grid(column=col_num,row=row_num)
@@ -87,22 +82,27 @@ def generate_buttons(container1_buttons):
             continue
         col_num += 1
 
-print("Welcome to python course for building calculator")
+def main():
+    print("Welcome to python course for building calculator")
 
-root = Tk() # Our "TopLevel" container
-root.title("Calculator") #Setting attributes on our container like title
+    root = Tk() # Our "TopLevel" container
+    root.title("Calculator") #Setting attributes on our container like title
+    root.resizable(0, 0)
 
-container1_buttons = Frame(root) # Creating a container for the buttons of the app
-container1_buttons.pack(side="bottom")
+    container1_buttons = Frame(root) # Creating a container for the buttons of the app
+    container1_buttons.pack(side="bottom")
 
-container2_screen = Frame(root) # Creating a container for the screen of the app
-container2_screen.pack(side="top")
+    container2_screen = Frame(root) # Creating a container for the screen of the app
+    container2_screen.pack(side="top")
 
-screen = Label(container2_screen)
-screen["text"]="0"
-screen.config(height=10,width=20)
-screen.pack(side="top")
+    screen = Label(container2_screen)
+    screen["text"]="0"
+    screen.config(height=10,width=20)
+    screen.pack(side="top")
 
-generate_buttons(container1_buttons)
+    generate_buttons(container1_buttons,screen)
 
-root.mainloop() # Execute the TopLevel container
+    root.mainloop() # Execute the TopLevel container
+
+if __name__ == '__main__':
+    main()
