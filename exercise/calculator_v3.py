@@ -6,6 +6,25 @@ from functools import partial
 HEIGHT_BTN = 5
 WIDTH_BTN = 5
 COLOT_BTN = "gray"
+SYMBOLS_DICT = {
+            0:'C',
+            1:9,
+            2:8,
+            3:7,
+            4:chr(247),
+            5:6,
+            6:5,
+            7:4,
+            8:'x',
+            9:3,
+            10:2,
+            11:1,
+            12:'-',
+            13:0,
+            14:'.',
+            15:'=',
+            16:'+'
+        }
 
 # Our methods/functions
 # Method to store our values in the label
@@ -30,37 +49,19 @@ def interactWithScreen(character,screen):
 
 # Function to calculate the result
 def numEqualClick(screen):
+    # make sure we work with strings (will remove some errors with replace method on int)
+    screen = str(screen)
     result = 0
+    # replace operators
+    screen = screen.replace("x","*")
+    screen = screen.replace(chr(247),"/")
     try:
-        screen = screen.replace("x","*")
-        screen = screen.replace(chr(247),"/")
-
-        result = eval(str(screen))
+        result = eval(screen)
     except ZeroDivisionError:
         result = "Error: Cannot divide by zero"
     return result
 
 def generate_buttons(container1_buttons,screen):
-    symbols_dict = {
-        0:'C',
-        1:9,
-        2:8,
-        3:7,
-        4:chr(247),
-        5:6,
-        6:5,
-        7:4,
-        8:'x',
-        9:3,
-        10:2,
-        11:1,
-        12:'-',
-        13:0,
-        14:'.',
-        15:'=',
-        16:'+'
-    }
-
     row_num = 0
     col_num = 0
 
@@ -70,8 +71,8 @@ def generate_buttons(container1_buttons,screen):
             row_num += 1
 
         # creating a partial function.
-        action_with_arg = partial(interactWithScreen, symbols_dict[num],screen)
-        numButton = Button(container1_buttons,text=symbols_dict[num],background=COLOT_BTN)
+        action_with_arg = partial(interactWithScreen, SYMBOLS_DICT[num],screen)
+        numButton = Button(container1_buttons,text=SYMBOLS_DICT[num],background=COLOT_BTN)
         numButton.config(height = HEIGHT_BTN, width = WIDTH_BTN,command= action_with_arg)
         numButton.grid(column=col_num,row=row_num)
         if(num==0):
@@ -82,6 +83,16 @@ def generate_buttons(container1_buttons,screen):
             continue
         col_num += 1
 
+def bind_kb_listener(root, screen):
+    # keyboard listener
+    def key_press(event):
+        if event.char in [str(val) for val in SYMBOLS_DICT.values()]:
+            interactWithScreen(event.char, screen)
+
+    root.bind('<KeyRelease>', key_press)
+
+
+    
 def main():
     print("Welcome to python course for building calculator")
 
@@ -101,6 +112,7 @@ def main():
     screen.pack(side="top")
 
     generate_buttons(container1_buttons,screen)
+    bind_kb_listener(root, screen)
 
     root.mainloop() # Execute the TopLevel container
 
